@@ -32,10 +32,11 @@ public class StateMachineNetworkManager implements INetworkManager {
             while (!isInterrupted) {
                 while (network.hasPackage()) {
                     NetworkPackage p = network.getPackage();
-                    //System.out.println(String.format("%1$s: %2$s", p.getType(), currentState.toString()));
+
                     logger.info(String.format(msgFormatter.getStringFormatByType(p.getType()), p.getMessage()));
                     commandCreator.createCommand(p, currentState).execute(p, buffer);
                     currentState = stateTransition.nextState(currentState, p);
+                    System.out.println(String.format("%1$s: %2$s", p.getType(), currentState.toString()));
 
                 }
 
